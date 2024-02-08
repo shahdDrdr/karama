@@ -81,7 +81,7 @@ class SharedPrefrenceRepository {
     if (pref.containsKey(PREF_APP_LANG)) {
       return getPrefrence(PREF_APP_LANG);
     } else {
-      return 'en';
+      return 'ar';
     }
   }
 

@@ -3,88 +3,63 @@ import 'package:get/get.dart';
 import 'package:task_P2/core/enums/text_style_type.dart';
 import 'package:task_P2/ui/shared/colors.dart';
 import 'package:task_P2/ui/shared/utlis.dart';
-
+enum TextStyleType {
+  TITLE,
+  FOCUSTEXT,
+  BODY,
+  NUMBER,
+}
 class CustomText extends StatelessWidget {
   final String text;
   final TextStyleType? styleType;
-  final Color? textColor;
-  final TextAlign? alignText;
-
+  final Color? mColor;
   final FontWeight? fontWeight;
   final double? fontSize;
-
+  final double? height;
   const CustomText({
     super.key,
     required this.text,
-    this.styleType,
-    this.textColor = AppColors.color3,
-    this.fontWeight = FontWeight.normal,
+    this.styleType = TextStyleType.BODY,
+    this.fontWeight=FontWeight.w400,
     this.fontSize,
-    this.alignText,
+    this.mColor, this.height,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: getStyle(Get.size),
-      textAlign: alignText,
+      style: getStyle(),
     );
   }
-
-  TextStyle getStyle(Size size) {
+  TextStyle getStyle() {
     TextStyle result = TextStyle();
-
     switch (styleType) {
-      case TextStyleType.PX12:
+      case TextStyleType.TITLE:
         result = TextStyle(
-            fontSize: screenWidth(31),
-            fontWeight: fontWeight,
-            color: textColor);
+            fontSize: screenWidth(22),
+            fontWeight:FontWeight.w800,
+            color: AppColors.white
+            );
         break;
-      case TextStyleType.PX14:
+      case TextStyleType.FOCUSTEXT:
         result = TextStyle(
-            fontSize: screenWidth(26.8),
-            fontWeight: fontWeight,
-            color: textColor);
+            fontSize: fontSize ?? null, fontWeight: FontWeight.w600, color: mColor,height: height??null);
         break;
-      case TextStyleType.PX16:
+      case TextStyleType.BODY:
         result = TextStyle(
-            fontSize: screenWidth(23.5),
-            fontWeight: fontWeight,
-            color: textColor);
+            fontSize: fontSize ?? null, fontWeight: fontWeight, color: mColor);
         break;
-      case TextStyleType.PX20:
+      case TextStyleType.NUMBER:
         result = TextStyle(
-            fontSize: screenWidth(18.8),
-            fontWeight: fontWeight ?? FontWeight.bold,
-            color: textColor);
-        break;
-      case TextStyleType.PX24:
-        result = TextStyle(
-            fontSize: screenWidth(15.6),
-            fontWeight: fontWeight ?? FontWeight.bold,
-            color: textColor);
-        break;
-      case TextStyleType.PX34:
-        result = TextStyle(
-            fontSize: screenWidth(11),
-            fontWeight: fontWeight ?? FontWeight.bold,
-            color: textColor);
-        break;
-      case TextStyleType.CUSTOM:
-        result = TextStyle(
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          color: textColor,
-        );
+            fontSize:fontSize??null, fontWeight: fontWeight, color: mColor,);
         break;
 
       default:
         result = TextStyle(
-            fontSize: screenWidth(26.8),
-            fontWeight: fontWeight,
-            color: textColor);
+            fontSize: screenWidth(25),
+            fontWeight: FontWeight.w400,
+            color: mColor);
         break;
     }
 

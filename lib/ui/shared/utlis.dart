@@ -18,7 +18,7 @@ void customLoader() => BotToast.showCustomLoading(toastBuilder: (context) {
         width: screenWidth(4),
         height: screenWidth(4),
         child: SpinKitCircle(
-          color: AppColors.color8,
+          //color: AppColors.color8,
           size: screenWidth(8),
         ),
       );

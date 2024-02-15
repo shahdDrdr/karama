@@ -3,50 +3,54 @@ import 'package:task_P2/ui/shared/colors.dart';
 import 'package:task_P2/ui/shared/shared_widgets/custom_text.dart';
 import 'package:task_P2/ui/shared/utlis.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-   final String text;
-   final bool? icon;
-  CustomAppBar({
- 
-    // this.heightt = kToolbarHeight,
-     required this.text, this.icon,
-  });
-
-  @override
-  Size get preferredSize => Size.fromHeight(screenWidth(3.7));
-
+class CustomUnderline extends StatelessWidget {
+ // final double size;
+  final Color? color;
+  final String text;
+  const CustomUnderline({super.key, this.color, required this.text,});
   @override
   Widget build(BuildContext context) {
-    return AppBar(backgroundColor: AppColors.blue,
-      flexibleSpace: Padding(
-        padding:  EdgeInsetsDirectional.only(top: screenWidth(10),start: screenWidth(22),end: screenWidth(22)),
-        child: Row(
-    children: [
-      Image.asset('assets/images/pngs/of.png',
-      width: screenWidth(7),
-      ),
-      CustomText(text: text,
-      styleType: TextStyleType.TITLE,
-      ),
-      Spacer(),
-      icon==true?
-      Row(children: [
-          Icon(Icons.arrow_back_ios,
-      color: AppColors.white,
-      ),
-      Image.asset('assets/images/pngs/ball.png')
-      ],): Row(
+     final textPainter = TextPainter(
+      text: TextSpan(
+          text: text,
+          style: TextStyle(
+              fontSize: screenWidth(22),
+              fontWeight:  FontWeight.w800,
+              color: color)),
+      textDirection: TextDirection.ltr,
+    )..layout();
+      List<Color> underlineColors = [
+      AppColors.blue,
+      AppColors.orange,
+      AppColors.blue,
+    ];
+     final segmentWidth = textPainter.width / underlineColors.length; 
+     final containers = underlineColors
+        .map((color) => Container(
+              margin: EdgeInsets.only(left: screenWidth(80),),
+              width: Colors.orange==color?segmentWidth-5:segmentWidth+9,
+           // width: segmentWidth,
+              height: 3.2,
+              decoration: BoxDecoration(
+                 color: color,
+                 borderRadius: BorderRadius.circular(20)
+              ),
+            ))
+        .toList();
+    return Stack(
+      children:[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [ CustomText(text: text,
+      styleType: TextStyleType.FOCUSTEXT,
+      fontSize: screenWidth(23),
+      ), SizedBox(
+        height: screenWidth(100),),
+       Row(
+        children: 
+         containers
       )
+      ],)
+       ] );
     
-    ],
-   )
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20)
-        )
-      ),
-      );
-  }
-}
+  }}
